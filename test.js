@@ -43,6 +43,25 @@ function getApi() {
         });
     });
 }
+function askAction() {
+    var askToMake = prompt('O que quer fazer?\nAdicionar Carro.\nDeletar Carro.\nEncerrar Programa.');
+    switch (askToMake) {
+        case 'Adicionar Carro':
+            addCar();
+            break;
+        case 'Deletar Carro':
+            deleteCarUser();
+            break;
+        case 'Encerrar Programa':
+            getApi();
+            break;
+        default:
+            alert('Não posso fazer isso');
+            askAction();
+            break;
+    }
+}
+askAction();
 function getApiId(id) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -144,4 +163,47 @@ putApi(3, updateNivus)*/
 /*let car4 = new Car('peugeot', '208', 'coupé', 2008, 23870, 21900)
 postApi('https://apigenerator.dronahq.com/api/cBAUTSsf/carroAPI', car4)*/
 //deleteApi(6)
-getApi();
+function getModelById(id) {
+    var carById = { marca: '', modelo: '', ano: 0, valor: 0 };
+    var response = fetch("https://apigenerator.dronahq.com/api/cBAUTSsf/carroAPI/".concat(id))
+        .then(function (response) { return response.json(); })
+        .then(function (data) {
+        carById.marca = data.marca;
+        carById.modelo = data.modelo;
+        carById.ano = data.ano;
+        carById.valor = data.valor;
+        console.log(carById);
+    });
+}
+//getModelById(3)
+// marca, modelo, categoria, ano, quilometragem, valor
+function addCar() {
+    var marca = prompt('Digite a MARCA do carro');
+    var modelo = prompt('Diga o MODELO do carro');
+    var categoria = prompt('Diga a CATEGORIA do carro');
+    var ano = parseInt(prompt('Diga o ANO do carro'));
+    var quilometragem = parseInt(prompt('Diga a QUILOMETRAGEM do carro'));
+    var valor = parseInt(prompt('Diga o VALOR do carro'));
+    var carToAd = {
+        marca: marca,
+        modelo: modelo,
+        categoria: categoria,
+        ano: ano,
+        quilometragem: quilometragem,
+        valor: valor
+    };
+    postApi("https://apigenerator.dronahq.com/api/cBAUTSsf/carroAPI", carToAd);
+    getApi();
+}
+var carChangePrice = new Car('volkswagen', 'golf', 'coupé', 2015, 54800, 23780);
+function changePrice(id, carObj) {
+    putApi(id, carObj);
+    //getApi() se quiser ver já atualizado, tenho que chamar fora da função, pois o putApi é uma Promise
+}
+//changePrice(3, carChangePrice)
+function deleteCarUser() {
+    var idCar = parseInt(prompt('Digite o ID do carro que deseja excluir'));
+    deleteApi(idCar);
+    //getApi()
+}
+//deleteCarUser()
