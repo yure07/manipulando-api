@@ -9,7 +9,11 @@
   <li>POST</li>
   <li>PUT</li>
   <li>DELETE</li>
+  <li>Mudar Preço de um Carro</li>
 </ul>
+
+<strong>O usuário tem opções de: Adicionar um carro na API, Deletar um carro em específico por ID e Encerrar Programa.</strong>
 
 <p>As manipulações na API são feitas com funções assíncronas no Typescript que são compiladas para o Javascript.</p>
 <p>Para fazer um PUT ou POST é usada uma classe com construtor para adicionar novos elementos na API.</p>
+
